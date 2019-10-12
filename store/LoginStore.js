@@ -5,14 +5,30 @@ import LoginConstants from '../constants/LoginConstants';
 
 const CHANGE_EVENT = 'change';
 let _loginParams = {
-   email:'',
-   password:''
+    username: '',
+    password: ''
 }
-function setLoginParams(params){
-    _loginParams.email = params.email,
-    _loginParams.password = params.password
+let _loginResult={
+    token:'',
+    errorMessage:''
+}
+let _loginStatus = { trying_login: false, succeed_login: false };
+
+function setLoginParams(params) {
+        _loginParams.username = params.email,
+        _loginParams.password = params.password
 
 }
+function setLoginStatus(newStatus) {
+    _loginStatus = newStatus;
+}
+function setLoginResult(result){
+    _loginResult.token = result
+}
+function setLoginResultError(result){
+    _loginResult.errorMessage = result
+}
+
 class LoginStoreClass extends EventEmitter {
     emitChange() {
         this.emit(CHANGE_EVENT);
@@ -27,17 +43,32 @@ class LoginStoreClass extends EventEmitter {
             listener.remove();
         });
     }
-    getLoginParams(){
+    getLoginParams() {
         return _loginParams
+    }
+    getLoginStatus(){
+        return _loginStatus
     }
 
 }
 const LoginStore = new LoginStoreClass();
 
-LoginStore.dispatchToken = AppDispatcher.register(action =>{
-    switch (action.actionType){
+LoginStore.dispatchToken = AppDispatcher.register(action => {
+    switch (action.actionType) {
         case LoginConstants.SET_LOGIN_PARAMS:
             setLoginParams(action.params);
+            LoginStore.emitChange();
+            break;
+        case LoginConstants.TRY_LOGIN:
+            setLoginStatus({trying_login: true, succeed_login: false});
+            break;
+        case LoginConstants.SUCCEED_LOGIN:
+            setLoginStatus({trying_login: false, succeed_login: false});
+            setLoginResult(action.result)
+            break;
+        case LoginConstants.ERROR_LOGIN:
+            setLoginStatus({trying_login: false, succeed_login: false});
+            setLoginResultError(action.result)
             break;
     }
 })

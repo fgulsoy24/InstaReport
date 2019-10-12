@@ -1,26 +1,41 @@
 import React, { Component } from 'react';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
-import {View,Text} from "react-native";
+import {View,Text,TextInput,Button} from "react-native";
 import LoginStore from "../store/LoginStore"
 import LoginActions from "../actions/LoginActions"
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = { email: '', password: '' }
+        this.onChange = this.onChange.bind(this);
     };
-
+    componentWillMount() {
+        LoginStore.addChangeListener(this.onChange);
+      }
+    
+      componentWillUnmount() {
+        LoginStore.removeChangeListener(this.onChange);
+      }
+    onChange() {
+        this.setState()
+      };
     handleEmailChange(email) {
-        var params = LoginStore.getLoginParams();
+        let params = Object.assign({}, LoginStore.getLoginParams());
         params.email = email;
         LoginActions.setLoginParams(params);
-        this.setState({ email: email });
+        this.setState({email:email});
     }
 
 
     handlePasswordChange(password) {
-        this.setState({ password: password });
+        let params = Object.assign({}, LoginStore.getLoginParams());
+        params.password = password;
+        LoginActions.setLoginParams(params);
+        this.setState({password:password});
     }
+
     handleLoginClick() {
+        var params = LoginStore.getLoginParams();
+        LoginActions.login(params)
         console.log("login button pressed")
     }
 
@@ -31,16 +46,16 @@ class Login extends Component {
         return (
             <View>
                 <TextInput
-                    value={params.email}
+                    value={this.state.email}
                     onChangeText={this.handleEmailChange.bind(this)}
                 />
                 <TextInput
                     value={this.state.password}
                     onChangeText={this.handlePasswordChange.bind(this)}
                 />
-                <TouchableOpacity onPress={this.handleLoginClick()}>
-                    <Text>Giriş</Text>
-                </TouchableOpacity>
+                <Button title="Giriş" onPress={this.handleLoginClick.bind(this)} >
+                   
+                </Button>
 
             </View>
         );
