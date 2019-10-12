@@ -9,15 +9,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Dashboard from '../screens/Dashboard'
-
+import Dashboard from '../screens/DashboardScreen'
+import Login from '../components/Login'
 import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {
   return (
  
     <View style={styles.container}>
-         <Dashboard/>
+       <Login/>
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
