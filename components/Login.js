@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import {View,Text,TextInput,Button} from "react-native";
+import {View,TextInput,  StyleSheet} from "react-native";
 import LoginStore from "../store/LoginStore"
 import LoginActions from "../actions/LoginActions"
+import { material } from 'react-native-typography'
+import { Container, Header, Content, Button, Text } from 'native-base';
+
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = { email: '', password: '' }
+        this.state = { username: '', password: '' }
         this.onChange = this.onChange.bind(this);
     };
+    
     componentWillMount() {
         LoginStore.addChangeListener(this.onChange);
       }
@@ -18,11 +22,11 @@ class Login extends Component {
     onChange() {
         this.setState()
       };
-    handleEmailChange(email) {
+      handleUserNameChange(username) {
         let params = Object.assign({}, LoginStore.getLoginParams());
-        params.email = email;
+        params.username = username;
         LoginActions.setLoginParams(params);
-        this.setState({email:email});
+        this.setState({username:username});
     }
 
 
@@ -40,22 +44,32 @@ class Login extends Component {
     }
 
 
-
     render() {
         var params = LoginStore.getLoginParams();
         return (
-            <View>
+            <View style={styles.container}>
+                <View  style={styles.inputContainer}>
                 <TextInput
-                    value={this.state.email}
-                    onChangeText={this.handleEmailChange.bind(this)}
+                style={styles.input}
+                placeholder="Username"
+                    value={this.state.username}
+                    onChangeText={this.handleUserNameChange.bind(this)}
                 />
-                <TextInput
+                   </View>
+                <View style={styles.inputContainer}>
+                <TextInput  style={styles.input}
+                placeholder="Password"
                     value={this.state.password}
                     onChangeText={this.handlePasswordChange.bind(this)}
                 />
-                <Button title="Giriş" onPress={this.handleLoginClick.bind(this)} >
-                   
+                </View>
+                
+                <Button primary style ={styles.buttonContainer} title="Login" onPress={this.handleLoginClick.bind(this)} >
+                <Text style={material.caption} >Giriş</Text>
                 </Button>
+
+                <br></br>
+                <Text style={material.caption} >Şifrenizi kaydetmiyoruz.</Text>
 
             </View>
         );
@@ -64,4 +78,39 @@ class Login extends Component {
 
 
 }
+
+const styles =  StyleSheet.create({ 
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#DCDCDC',
+      },
+    input:{
+        height:45,
+        marginLeft:16,
+        borderBottomColor: '#FFFFFF',
+        flex:1,
+    },
+buttonContainer:{
+    height:45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:250,
+    borderRadius:30
+},
+inputContainer: {
+    borderBottomColor: '#F5FCFF',
+    backgroundColor: '#FFFFFF',
+    borderRadius:30,
+    borderBottomWidth: 1,
+    width:250,
+    height:45,
+    marginBottom:20,
+    flexDirection: 'row',
+    alignItems:'center'
+}
+})
 export default Login;

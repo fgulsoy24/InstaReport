@@ -15,7 +15,7 @@ let _loginResult={
 let _loginStatus = { trying_login: false, succeed_login: false };
 
 function setLoginParams(params) {
-        _loginParams.username = params.email,
+        _loginParams.username = params.username,
         _loginParams.password = params.password
 
 }
