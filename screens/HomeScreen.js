@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import Dashboard from '../screens/DashboardScreen'
-import Login from '../components/Login'
+import Login from '../componentsr/Login'
 import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {

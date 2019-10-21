@@ -1,37 +1,33 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Image,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    ImageBackground,
+    View,
 } from 'react-native';
 import Login from '../components/Login'
 
 export default function LoginScreen() {
 
     return (
-    <View style={styles.container}>
-     <Login style={styles.container} />
-  </View>
+        <View style={styles.container}>
+            <ImageBackground source={"../assets/images/istanbul.jpg"} style={{ width: '100%', height: '100%' }}>
+                <Login style={styles.container} />
+            </ImageBackground>
+        </View>
 
-       );
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#DCDCDC'
-    },
-    input:{
-        height: 40,
-        backgroundColor: 'rgba(225,225,225,0.2)',
-        marginBottom: 10,
-        padding: 10,
-        color: '#fff'
-    }})
+        alignItems: 'center'
+    }
+})

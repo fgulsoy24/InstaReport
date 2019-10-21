@@ -1,4 +1,6 @@
 import React from 'react';
+import { View } from 'native-base';
+import DashboardComponent from '../components/Dashboard'
 
 class Dashboard extends React.Component{
     constructor(props){
@@ -8,15 +10,10 @@ class Dashboard extends React.Component{
 
     render() {
         return (
-          <div>
-            <h1>Hello React ES6 Class Component!</h1>
-            <input
-              value={this.state.value}
-              type="text"
-              onChange={this.onChange}
-            />
-            <p>{this.state.value}</p>
-          </div>
+       <View >
+         <DashboardComponent/>
+
+       </View>
         );
     }
 

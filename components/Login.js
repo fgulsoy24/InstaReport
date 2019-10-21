@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {View,TextInput,  StyleSheet} from "react-native";
+import {View,TextInput,  StyleSheet,Text} from "react-native";
 import LoginStore from "../store/LoginStore"
 import LoginActions from "../actions/LoginActions"
 import { material } from 'react-native-typography'
-import { Container, Header, Content, Button, Text } from 'native-base';
+import { Button } from 'native-base';
 
 class Login extends Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class Login extends Component {
     onChange() {
         this.setState()
       };
-      handleUserNameChange(username) {
+    handleUserNameChange(username) {
         let params = Object.assign({}, LoginStore.getLoginParams());
         params.username = username;
         LoginActions.setLoginParams(params);
@@ -64,8 +64,8 @@ class Login extends Component {
                 />
                 </View>
                 
-                <Button primary style ={styles.buttonContainer} title="Login" onPress={this.handleLoginClick.bind(this)} >
-                <Text style={material.caption} >Giriş</Text>
+                <Button style ={styles.buttonContainer} title="Login" onPress={this.handleLoginClick.bind(this)} >
+                <Text style={material.caption} >Login.</Text>
                 </Button>
 
                 <br></br>

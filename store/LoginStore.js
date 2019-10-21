@@ -63,7 +63,7 @@ LoginStore.dispatchToken = AppDispatcher.register(action => {
             setLoginStatus({trying_login: true, succeed_login: false});
             break;
         case LoginConstants.SUCCEED_LOGIN:
-            setLoginStatus({trying_login: false, succeed_login: false});
+            setLoginStatus({trying_login: false, succeed_login: true});
             setLoginResult(action.result)
             break;
         case LoginConstants.ERROR_LOGIN:
